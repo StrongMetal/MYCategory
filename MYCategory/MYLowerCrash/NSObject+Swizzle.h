@@ -18,7 +18,7 @@
  @param srcSel 被替换的方法编号
  @param swizzledSel 用于替换的方法编号
  */
-- (void)MY_swizzleInstanceMethodWithSrcClass:(Class)srcClass
+- (void)my_swizzleInstanceMethodWithSrcClass:(Class)srcClass
                                       srcSel:(SEL)srcSel
                                  swizzledSel:(SEL)swizzledSel;
 
@@ -30,7 +30,7 @@
  @param srcSel 被替换的方法编号
  @param swizzledSel 用于替换的方法编号
  */
-- (void)MY_swizzleClassMethodWithSrcClass:(Class)srcClass
+- (void)my_swizzleClassMethodWithSrcClass:(Class)srcClass
                                    srcSel:(SEL)srcSel
                               swizzledSel:(SEL)swizzledSel;
 

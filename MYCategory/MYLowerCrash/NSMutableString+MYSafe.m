@@ -16,56 +16,56 @@ static NSString *KMStringClass = @"__NSCFConstantString";
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMStringClass)
                                             srcSel:@selector(replaceCharactersInRange:withString:)
-                                       swizzledSel:@selector(MY_safeReplaceCharactersInRange:withString:)];
+                                       swizzledSel:@selector(my_safeReplaceCharactersInRange:withString:)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMStringClass)
                                             srcSel:@selector(insertString:atIndex:)
-                                       swizzledSel:@selector(MY_safeInsertString:atIndex:)];
+                                       swizzledSel:@selector(my_safeInsertString:atIndex:)];
 
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMStringClass)
                                             srcSel:@selector(deleteCharactersInRange:)
-                                       swizzledSel:@selector(MY_safeDeleteCharactersInRange:)];
+                                       swizzledSel:@selector(my_safeDeleteCharactersInRange:)];
 
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMStringClass)
                                             srcSel:@selector(appendString:)
-                                       swizzledSel:@selector(MY_safeAppendString:)];
+                                       swizzledSel:@selector(my_safeAppendString:)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMStringClass)
                                             srcSel:@selector(setString:)
-                                       swizzledSel:@selector(MY_safeSetString:)];
+                                       swizzledSel:@selector(my_safeSetString:)];
     });
 }
 
-- (void)MY_safeReplaceCharactersInRange:(NSRange)range withString:(NSString *)aString
+- (void)my_safeReplaceCharactersInRange:(NSRange)range withString:(NSString *)aString
 {
     if(range.location + range.length > self.length || !aString) return;
-    [self MY_safeReplaceCharactersInRange:range withString:aString];
+    [self my_safeReplaceCharactersInRange:range withString:aString];
 }
 
-- (void)MY_safeInsertString:(NSString *)aString atIndex:(NSUInteger)loc
+- (void)my_safeInsertString:(NSString *)aString atIndex:(NSUInteger)loc
 {
     if (!aString || loc > self.length) return;
-    [self MY_safeInsertString:aString atIndex:loc];
+    [self my_safeInsertString:aString atIndex:loc];
 }
 
-- (void)MY_safeDeleteCharactersInRange:(NSRange)range
+- (void)my_safeDeleteCharactersInRange:(NSRange)range
 {
     if(range.location + range.length > self.length) return;
-    [self MY_safeDeleteCharactersInRange:range];
+    [self my_safeDeleteCharactersInRange:range];
 }
 
-- (void)MY_safeAppendString:(NSString *)aString
+- (void)my_safeAppendString:(NSString *)aString
 {
     if(!aString) return;
-    [self MY_safeAppendString:aString];
+    [self my_safeAppendString:aString];
 }
 
-- (void)MY_safeSetString:(NSString *)aString
+- (void)my_safeSetString:(NSString *)aString
 {
     if(!aString) return;
-    [self MY_safeSetString:aString];
+    [self my_safeSetString:aString];
 }
 
 @end

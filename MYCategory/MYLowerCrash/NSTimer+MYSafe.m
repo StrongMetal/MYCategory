@@ -40,18 +40,18 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self MY_swizzleClassMethodWithSrcClass:[self class] srcSel:@selector(timerWithTimeInterval:target:selector:userInfo:repeats:) swizzledSel:@selector(MY_timerWithTimeInterval:target:selector:userInfo:repeats:)];
+        [self my_swizzleClassMethodWithSrcClass:[self class] srcSel:@selector(timerWithTimeInterval:target:selector:userInfo:repeats:) swizzledSel:@selector(my_timerWithTimeInterval:target:selector:userInfo:repeats:)];
     });
 }
 
 #pragma mark -- swizzling methods
-+ (NSTimer *)MY_timerWithTimeInterval:(NSTimeInterval)ti target:(id)aTarget selector:(SEL)aSelector userInfo:(nullable id)userInfo repeats:(BOOL)yesOrNo
++ (NSTimer *)my_timerWithTimeInterval:(NSTimeInterval)ti target:(id)aTarget selector:(SEL)aSelector userInfo:(nullable id)userInfo repeats:(BOOL)yesOrNo
 {
     MYTimerTarget *timeTarget = [MYTimerTarget new];
     timeTarget.aTarget = aTarget;
     timeTarget.aSelector = aSelector;
     
-    return [NSTimer MY_timerWithTimeInterval:ti target:timeTarget selector:@selector(timerTargetAction:) userInfo:userInfo repeats:yesOrNo];
+    return [NSTimer my_timerWithTimeInterval:ti target:timeTarget selector:@selector(timerTargetAction:) userInfo:userInfo repeats:yesOrNo];
 }
 
 @end

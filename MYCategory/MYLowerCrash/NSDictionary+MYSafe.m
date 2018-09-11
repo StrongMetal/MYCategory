@@ -17,13 +17,13 @@ static NSString *KDictionaryClass = @"__NSPlaceholderDictionary";
     NSLog(@"NSDictionary + load");
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KDictionaryClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KDictionaryClass)
                                             srcSel:@selector(initWithObjects:forKeys:count:)
-                                       swizzledSel:@selector(MY_safeInitWithObjects:forKeys:count:)];
+                                       swizzledSel:@selector(my_safeInitWithObjects:forKeys:count:)];
     });
 }
 
-- (instancetype)MY_safeInitWithObjects:(id*)objects forKeys:(id*)keys count:(NSUInteger)cnt
+- (instancetype)my_safeInitWithObjects:(id*)objects forKeys:(id*)keys count:(NSUInteger)cnt
 {
     for (NSUInteger i = 0; i < cnt; i++)
     {
@@ -31,7 +31,7 @@ static NSString *KDictionaryClass = @"__NSPlaceholderDictionary";
 
         if(!objects[i]) objects[i] = @"";
     }
-    return [self MY_safeInitWithObjects:objects forKeys:keys count:cnt];
+    return [self my_safeInitWithObjects:objects forKeys:keys count:cnt];
 }
 
 @end

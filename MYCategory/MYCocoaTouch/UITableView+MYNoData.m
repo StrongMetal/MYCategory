@@ -72,21 +72,21 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self MY_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(reloadData) swizzledSel:@selector(MY_reloadData)];
+        [self my_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(reloadData) swizzledSel:@selector(my_reloadData)];
     });
 }
 
 #pragma mark -- swizzling methods
-- (void)MY_reloadData
+- (void)my_reloadData
 {
     //需要显示空页面 && 已经跳过第一次加载(设置datasource的时候会自动执行一次reloadData,需要跳过)
-    if(self.MY_showEmpty && self.MY_firstSkiped) [self MY_checkEmpty];
-    self.MY_firstSkiped = YES;
-    [self MY_reloadData];
+    if(self.my_showEmpty && self.my_firstSkiped) [self my_checkEmpty];
+    self.my_firstSkiped = YES;
+    [self my_reloadData];
 }
 
 /** 检查是否为空页面 */
-- (void)MY_checkEmpty
+- (void)my_checkEmpty
 {
     BOOL isEmpty = YES;
     id<UITableViewDataSource> dataSource = self.dataSource;
@@ -109,70 +109,70 @@
     //显示隐藏空页面
     if(isEmpty)
     {
-        if(!self.MY_emptyView)
+        if(!self.my_emptyView)
         {
-            self.MY_emptyView = [[MYEmptyView alloc]initWithFrame:self.bounds text:self.MY_emptyText image:self.MY_emptyImage];
-            [self addSubview:self.MY_emptyView];
+            self.my_emptyView = [[MYEmptyView alloc]initWithFrame:self.bounds text:self.my_emptyText image:self.my_emptyImage];
+            [self addSubview:self.my_emptyView];
         }
-        self.MY_emptyView.hidden = NO;
+        self.my_emptyView.hidden = NO;
         
     }else
     {
-        self.MY_emptyView.hidden = YES;
+        self.my_emptyView.hidden = YES;
     }
 }
 
 #pragma mark -- getter && setter
-- (BOOL)MY_showEmpty
+- (BOOL)my_showEmpty
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
-- (void)setMY_showEmpty:(BOOL)MY_showEmpty
+- (void)setmy_showEmpty:(BOOL)my_showEmpty
 {
-    objc_setAssociatedObject(self, @selector(MY_showEmpty), @(MY_showEmpty), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(my_showEmpty), @(my_showEmpty), OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (BOOL)MY_firstSkiped
+- (BOOL)my_firstSkiped
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
-- (void)setMY_firstSkiped:(BOOL)MY_firstSkiped
+- (void)setmy_firstSkiped:(BOOL)my_firstSkiped
 {
-    objc_setAssociatedObject(self, @selector(MY_firstSkiped), @(MY_firstSkiped), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(my_firstSkiped), @(my_firstSkiped), OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (NSString *)MY_emptyText
+- (NSString *)my_emptyText
 {
     NSString *text = objc_getAssociatedObject(self, _cmd);
     if(!text) text = @"暂无数据";
     return text;
 }
 
-- (void)setMY_emptyText:(NSString *)MY_emptyText
+- (void)setmy_emptyText:(NSString *)my_emptyText
 {
-    objc_setAssociatedObject(self, @selector(MY_emptyText), MY_emptyText, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_emptyText), my_emptyText, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (UIImage *)MY_emptyImage
+- (UIImage *)my_emptyImage
 {
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setMY_emptyImage:(UIImage *)MY_emptyImage
+- (void)setmy_emptyImage:(UIImage *)my_emptyImage
 {
-    objc_setAssociatedObject(self, @selector(MY_emptyImage), MY_emptyImage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_emptyImage), my_emptyImage, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (MYEmptyView *)MY_emptyView
+- (MYEmptyView *)my_emptyView
 {
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setMY_emptyView:(MYEmptyView *)MY_emptyView
+- (void)setmy_emptyView:(MYEmptyView *)my_emptyView
 {
-    objc_setAssociatedObject(self, @selector(MY_emptyView), MY_emptyView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_emptyView), my_emptyView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

@@ -11,6 +11,6 @@
 @interface UIButton (MYTap)
 
 /** 控制按钮的点击范围 {上，左，下，右}*/
-@property (nonatomic,assign) UIEdgeInsets MY_hitEdgeInsets;
+@property (nonatomic,assign) UIEdgeInsets my_hitEdgeInsets;
 
 @end

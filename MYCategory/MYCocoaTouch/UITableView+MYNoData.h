@@ -11,12 +11,12 @@
 @interface UITableView (MYNoData)
 
 /** 无数据时是否显示空页面，默认为NO*/
-@property (nonatomic,assign) BOOL MY_showEmpty;
+@property (nonatomic,assign) BOOL my_showEmpty;
 
 /** 空页面显示的文字，默认为”暂无数据“*/
-@property (nonatomic,  copy) NSString *MY_emptyText;
+@property (nonatomic,  copy) NSString *my_emptyText;
 
 /** 空页面显示的图片，默认为空 */
-@property (nonatomic,strong) UIImage *MY_emptyImage;
+@property (nonatomic,strong) UIImage *my_emptyImage;
 
 @end

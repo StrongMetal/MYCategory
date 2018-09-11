@@ -17,21 +17,21 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-//        [self MY_swizzleClassMethodWithSrcClass:[self class]
+//        [self my_swizzleClassMethodWithSrcClass:[self class]
 //                                         srcSel:@selector(resolveInstanceMethod:)
-//                                    swizzledSel:@selector(MY_resolveInstanceMethod:)];
+//                                    swizzledSel:@selector(my_resolveInstanceMethod:)];
 //        
-//        [self MY_swizzleInstanceMethodWithSrcClass:[self class]
+//        [self my_swizzleInstanceMethodWithSrcClass:[self class]
 //                                            srcSel:@selector(forwardingTargetForSelector:)
-//                                       swizzledSel:@selector(MY_forwardingTargetForSelector:)];
+//                                       swizzledSel:@selector(my_forwardingTargetForSelector:)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:[self class]
+        [self my_swizzleInstanceMethodWithSrcClass:[self class]
                                             srcSel:@selector(forwardInvocation:)
-                                       swizzledSel:@selector(MY_forwardInvocation:)];
+                                       swizzledSel:@selector(my_forwardInvocation:)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:[self class]
+        [self my_swizzleInstanceMethodWithSrcClass:[self class]
                                             srcSel:@selector(methodSignatureForSelector:)
-                                       swizzledSel:@selector(MY_methodSignatureForSelector:)];
+                                       swizzledSel:@selector(my_methodSignatureForSelector:)];
         
     });
 }
@@ -42,12 +42,12 @@
     NSLog(@"empty");
 }
 
-+ (BOOL)MY_resolveInstanceMethod:(SEL)sel
++ (BOOL)my_resolveInstanceMethod:(SEL)sel
 {
     return NO;
 }
 
-- (id)MY_forwardingTargetForSelector:(SEL)sel
+- (id)my_forwardingTargetForSelector:(SEL)sel
 {
     
     return nil;
@@ -58,7 +58,7 @@
  
  @param anInvocation 消息调用对象
  */
-- (void)MY_forwardInvocation:(NSInvocation *)anInvocation
+- (void)my_forwardInvocation:(NSInvocation *)anInvocation
 {
     NSLog(@"unrecognized selector -[%@ %@]\n%s",anInvocation.target,NSStringFromSelector([anInvocation selector]),__FUNCTION__);
     
@@ -82,12 +82,12 @@
  @param aSelector 方法编号
  @return 方法签名
  */
-- (NSMethodSignature *)MY_methodSignatureForSelector:(SEL)aSelector
+- (NSMethodSignature *)my_methodSignatureForSelector:(SEL)aSelector
 {
     if ([self respondsToSelector:aSelector])
     {
         // 如果能够响应则返回原始方法签名
-        return [self MY_methodSignatureForSelector:aSelector];
+        return [self my_methodSignatureForSelector:aSelector];
     }else
     {
         // 构造自定义方法的签名

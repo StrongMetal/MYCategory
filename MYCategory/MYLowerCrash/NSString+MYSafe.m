@@ -16,83 +16,83 @@ static NSString *KStringClass = @"__NSCFString";
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
                                             srcSel:@selector(characterAtIndex:)
-                                       swizzledSel:@selector(MY_safeCharacterAtIndex:)];
+                                       swizzledSel:@selector(my_safeCharacterAtIndex:)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
                                             srcSel:@selector(substringWithRange:)
-                                       swizzledSel:@selector(MY_safeSubstringWithRange:)];
+                                       swizzledSel:@selector(my_safeSubstringWithRange:)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
                                             srcSel:@selector(substringFromIndex:)
-                                       swizzledSel:@selector(MY_safeSubstringFromIndex:)];
+                                       swizzledSel:@selector(my_safeSubstringFromIndex:)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
                                             srcSel:@selector(substringToIndex:)
-                                       swizzledSel:@selector(MY_safeSubstringToIndex:)];
+                                       swizzledSel:@selector(my_safeSubstringToIndex:)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
                                             srcSel:@selector(rangeOfString:)
-                                       swizzledSel:@selector(MY_safeRangeOfString:)];
+                                       swizzledSel:@selector(my_safeRangeOfString:)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
                                             srcSel:@selector(doubleValue)
-                                       swizzledSel:@selector(MY_doubleValue)];
+                                       swizzledSel:@selector(my_doubleValue)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KStringClass)
                                             srcSel:@selector(floatValue)
-                                       swizzledSel:@selector(MY_floatValue)];
+                                       swizzledSel:@selector(my_floatValue)];
         
     });
 }
 
-- (unichar)MY_safeCharacterAtIndex:(NSUInteger)index
+- (unichar)my_safeCharacterAtIndex:(NSUInteger)index
 {
     if(index >= self.length) return 0;
-    return [self MY_safeCharacterAtIndex:index];
+    return [self my_safeCharacterAtIndex:index];
 }
 
-- (NSString *)MY_safeSubstringFromIndex:(NSUInteger)from
+- (NSString *)my_safeSubstringFromIndex:(NSUInteger)from
 {
     if(from > self.length) return @"";
-    return [self MY_safeSubstringFromIndex:from];
+    return [self my_safeSubstringFromIndex:from];
 }
 
-- (NSString *)MY_safeSubstringToIndex:(NSUInteger)to
+- (NSString *)my_safeSubstringToIndex:(NSUInteger)to
 {
     if(to > self.length) return self;
-    return [self MY_safeSubstringToIndex:to];
+    return [self my_safeSubstringToIndex:to];
 }
 
-- (NSString *)MY_safeSubstringWithRange:(NSRange)range
+- (NSString *)my_safeSubstringWithRange:(NSRange)range
 {
     if(range.location + range.length > self.length) return @"";
-    return [self MY_safeSubstringWithRange:range];
+    return [self my_safeSubstringWithRange:range];
 }
 
-- (NSRange)MY_safeRangeOfString:(NSString *)searchString
+- (NSRange)my_safeRangeOfString:(NSString *)searchString
 {
     if(!searchString) return NSMakeRange(0, 0);
-    return [self MY_safeRangeOfString:searchString];
+    return [self my_safeRangeOfString:searchString];
 }
 
-- (double)MY_doubleValue
+- (double)my_doubleValue
 {
     if ([self rangeOfString:@","].location != NSNotFound)
     {
-       return [[[self class] stringDeleteString:self] MY_doubleValue];
+       return [[[self class] stringDeleteString:self] my_doubleValue];
     }
-    return [self MY_doubleValue];
+    return [self my_doubleValue];
 }
 
-- (float)MY_floatValue
+- (float)my_floatValue
 {
     if ([self rangeOfString:@","].location != NSNotFound)
     {
-        return [[[self class] stringDeleteString:self] MY_floatValue];
+        return [[[self class] stringDeleteString:self] my_floatValue];
     }
-    return [self MY_floatValue];
+    return [self my_floatValue];
 }
 
 //删除中间的，%

@@ -17,31 +17,31 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        [self MY_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(textRectForBounds:limitedToNumberOfLines:) swizzledSel:@selector(MY_textRectForBounds:limitedToNumberOfLines:)];
+        [self my_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(textRectForBounds:limitedToNumberOfLines:) swizzledSel:@selector(my_textRectForBounds:limitedToNumberOfLines:)];
         
-        [self MY_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(drawTextInRect:) swizzledSel:@selector(MY_drawTextInRect:)];
+        [self my_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(drawTextInRect:) swizzledSel:@selector(my_drawTextInRect:)];
         
     });
 }
 
 #pragma mark -- swizzling methods
-- (CGRect)MY_textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines
+- (CGRect)my_textRectForBounds:(CGRect)bounds limitedToNumberOfLines:(NSInteger)numberOfLines
 {
-    CGRect rect = [self MY_textRectForBounds:UIEdgeInsetsInsetRect(bounds, self.MY_textEdgeInset) limitedToNumberOfLines:numberOfLines];
-    rect.origin.x -= self.MY_textEdgeInset.left;
-    rect.origin.y -= self.MY_textEdgeInset.top;
-    rect.size.width += (self.MY_textEdgeInset.left + self.MY_textEdgeInset.right);
-    rect.size.height += (self.MY_textEdgeInset.top + self.MY_textEdgeInset.bottom);
+    CGRect rect = [self my_textRectForBounds:UIEdgeInsetsInsetRect(bounds, self.my_textEdgeInset) limitedToNumberOfLines:numberOfLines];
+    rect.origin.x -= self.my_textEdgeInset.left;
+    rect.origin.y -= self.my_textEdgeInset.top;
+    rect.size.width += (self.my_textEdgeInset.left + self.my_textEdgeInset.right);
+    rect.size.height += (self.my_textEdgeInset.top + self.my_textEdgeInset.bottom);
     return rect;
 }
 
-- (void)MY_drawTextInRect:(CGRect)rect
+- (void)my_drawTextInRect:(CGRect)rect
 {
-    [self MY_drawTextInRect:UIEdgeInsetsInsetRect(rect, self.MY_textEdgeInset)];
+    [self my_drawTextInRect:UIEdgeInsetsInsetRect(rect, self.my_textEdgeInset)];
 }
 
 #pragma mark -- getter && setter
-- (UIEdgeInsets)MY_textEdgeInset
+- (UIEdgeInsets)my_textEdgeInset
 {
     NSValue *value = objc_getAssociatedObject(self, _cmd);
     if(value)
@@ -51,9 +51,9 @@
     return UIEdgeInsetsZero;
 }
 
-- (void)setMY_textEdgeInset:(UIEdgeInsets)textEdgeInset
+- (void)setmy_textEdgeInset:(UIEdgeInsets)textEdgeInset
 {
-    objc_setAssociatedObject(self, @selector(MY_textEdgeInset), [NSValue valueWithUIEdgeInsets:textEdgeInset], OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(my_textEdgeInset), [NSValue valueWithUIEdgeInsets:textEdgeInset], OBJC_ASSOCIATION_ASSIGN);
 }
 
 @end

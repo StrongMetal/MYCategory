@@ -14,19 +14,19 @@
 /** 忽略navigationbar自动显示的控制器集合，默认为空，相当于一个黑名单
     当控制器在viewDidLoad中隐藏了navigationbar，则把该控制器添加至该集合
  */
-@property (nonatomic,strong) NSMutableSet<__kindof NSString *> *MY_ignoreVCs;
+@property (nonatomic,strong) NSMutableSet<__kindof NSString *> *my_ignoreVCs;
 
 /** 是否自动控制navigationbar显示隐藏，默认为YES */
-@property (nonatomic,assign) BOOL MY_barAppearaceEnabled;
+@property (nonatomic,assign) BOOL my_barAppearaceEnabled;
 
 @end
 
 @interface UIViewController (MYBarHide)
 
 /** 导航栏是否隐藏，默认为NO */
-@property (nonatomic,assign) BOOL MY_navigationBarHidden;
+@property (nonatomic,assign) BOOL my_navigationBarHidden;
 
 /** 滑动返回手势失效，默认为NO */
-@property (nonatomic,assign) BOOL MY_interactivePopDisabled;
+@property (nonatomic,assign) BOOL my_interactivePopDisabled;
 
 @end

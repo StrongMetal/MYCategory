@@ -21,7 +21,7 @@
     objc_setAssociatedObject(self, @selector(coverView), view, OBJC_ASSOCIATION_RETAIN);
 }
 
-- (void)MY_setBackgroundColor:(UIColor *)backgroundColor
+- (void)my_setBackgroundColor:(UIColor *)backgroundColor
 {
     if(!self.coverView)
     {
@@ -36,7 +36,7 @@
     self.coverView.backgroundColor = backgroundColor;
 }
 
-- (void)MY_setElementAlpha:(CGFloat)alpha
+- (void)my_setElementAlpha:(CGFloat)alpha
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         for (UIView *subView in self.subviews) {
@@ -48,18 +48,18 @@
     });
 }
 
-- (void)MY_setTranslationY:(CGFloat)translationY
+- (void)my_setTranslationY:(CGFloat)translationY
 {
     self.transform = CGAffineTransformMakeTranslation(0, translationY);
 }
 
-- (void)MY_reset
+- (void)my_reset
 {
     [self setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.coverView removeFromSuperview];
     self.coverView = nil;
-    [self MY_setElementAlpha:1];
-    [self MY_setTranslationY:0];
+    [self my_setElementAlpha:1];
+    [self my_setTranslationY:0];
 }
 
 @end

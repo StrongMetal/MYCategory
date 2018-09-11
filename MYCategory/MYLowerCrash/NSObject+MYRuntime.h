@@ -15,28 +15,28 @@
 
  @return 属性数组
  */
-+ (NSArray *)MY_propertyList;
++ (NSArray *)my_propertyList;
 
 /**
  返回当前类所有的成员变量
 
  @return 成员变量数组
  */
-+ (NSArray *)MY_ivarList;
++ (NSArray *)my_ivarList;
 
 /**
  放回当前类所有的方法
 
  @return 方法数组
  */
-+ (NSArray *)MY_methodList;
++ (NSArray *)my_methodList;
 
 /**
  返回当前类所有的协议
 
  @return 协议列表
  */
-+ (NSArray *)MY_protocolList;
++ (NSArray *)my_protocolList;
 
 
 @end

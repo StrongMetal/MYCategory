@@ -27,103 +27,103 @@ static NSString *KMultiArrayClass  = @"__NSArrayI";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KInitArrayClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KInitArrayClass)
                                             srcSel:@selector(initWithObjects:count:)
-                                       swizzledSel:@selector(MY_safeInitWithObjects:count:)];
+                                       swizzledSel:@selector(my_safeInitWithObjects:count:)];
         
-        [self MY_arrayMethodSwizzleWithRealClass:KEmptyArrayClass prefix:@"MY_emptyArray"];
-        [self MY_arrayMethodSwizzleWithRealClass:KSingleArrayClass prefix:@"MY_singleArray"];
-        [self MY_arrayMethodSwizzleWithRealClass:KMultiArrayClass prefix:@"MY_multiArray"];
+        [self my_arrayMethodSwizzleWithRealClass:KEmptyArrayClass prefix:@"my_emptyArray"];
+        [self my_arrayMethodSwizzleWithRealClass:KSingleArrayClass prefix:@"my_singleArray"];
+        [self my_arrayMethodSwizzleWithRealClass:KMultiArrayClass prefix:@"my_multiArray"];
         
     });
 
 }
 
-+ (void)MY_arrayMethodSwizzleWithRealClass:(NSString *)realClass prefix:(NSString *)prefix
++ (void)my_arrayMethodSwizzleWithRealClass:(NSString *)realClass prefix:(NSString *)prefix
 {
     
-    [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(realClass)
+    [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(realClass)
                                         srcSel:@selector(objectAtIndex:)
                                    swizzledSel:KSelectorFromString(prefix, @"ObjectAtIndex:")];
     
-    [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(realClass)
+    [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(realClass)
                                         srcSel:@selector(arrayByAddingObject:)
                                    swizzledSel:KSelectorFromString(prefix, @"ArrayByAddingObject:")];
     
     if (iOS11) {
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(realClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(realClass)
                                             srcSel:@selector(objectAtIndexedSubscript:)
                                        swizzledSel:KSelectorFromString(prefix, @"ObjectAtIndexedSubscript:")];
     }
 }
 
 #pragma mark -- swizzled Methods
-- (instancetype)MY_safeInitWithObjects:(id *)objects count:(NSUInteger)cnt
+- (instancetype)my_safeInitWithObjects:(id *)objects count:(NSUInteger)cnt
 {
     for (NSUInteger i = 0; i < cnt; i++)
     {
         if (!objects[i]) objects[i] = @"";
     }
-    return [self MY_safeInitWithObjects:objects count:cnt];
+    return [self my_safeInitWithObjects:objects count:cnt];
 }
 
-- (id)MY_emptyArrayObjectAtIndex:(NSUInteger)index
+- (id)my_emptyArrayObjectAtIndex:(NSUInteger)index
 {
     if (index >= self.count) return nil;
-    return [self MY_emptyArrayObjectAtIndex:index];
+    return [self my_emptyArrayObjectAtIndex:index];
 }
 
-- (id)MY_singleArrayObjectAtIndex:(NSUInteger)index
+- (id)my_singleArrayObjectAtIndex:(NSUInteger)index
 {
     if (index >= self.count) return nil;
-    return [self MY_singleArrayObjectAtIndex:index];
+    return [self my_singleArrayObjectAtIndex:index];
 }
 
-- (id)MY_multiArrayObjectAtIndex:(NSUInteger)index
+- (id)my_multiArrayObjectAtIndex:(NSUInteger)index
 {
     if (index >= self.count) return nil;
     // NSLog(@"%@",NSStringFromClass(self.class));      //__NSArrayI
     // NSLog(@"%@",NSStringFromClass(self.superclass)); //NSArray
     // __NSArrayI是NSArray的子类
-    // MY_multiArrayObjectAtIndex:是NSArray的方法,self是__NSArrayI的实例，子类调用父类的方法，没问题
-    return [self MY_multiArrayObjectAtIndex:index];
+    // my_multiArrayObjectAtIndex:是NSArray的方法,self是__NSArrayI的实例，子类调用父类的方法，没问题
+    return [self my_multiArrayObjectAtIndex:index];
 }
 
 //解决array[index] 字面量语法超出界限的bug
-- (id)MY_emptyArrayObjectAtIndexedSubscript:(NSUInteger)index
+- (id)my_emptyArrayObjectAtIndexedSubscript:(NSUInteger)index
 {
     if (index >= self.count) return nil;
-    return [self MY_emptyArrayObjectAtIndexedSubscript:index];
+    return [self my_emptyArrayObjectAtIndexedSubscript:index];
 }
 
-- (id)MY_singleArrayObjectAtIndexedSubscript:(NSUInteger)index
+- (id)my_singleArrayObjectAtIndexedSubscript:(NSUInteger)index
 {
     if (index >= self.count) return nil;
-    return [self MY_singleArrayObjectAtIndexedSubscript:index];
+    return [self my_singleArrayObjectAtIndexedSubscript:index];
 }
 
-- (id)MY_multiArrayObjectAtIndexedSubscript:(NSUInteger)index
+- (id)my_multiArrayObjectAtIndexedSubscript:(NSUInteger)index
 {
     if (index >= self.count) return nil;
-    return [self MY_multiArrayObjectAtIndexedSubscript:index];
+    return [self my_multiArrayObjectAtIndexedSubscript:index];
 }
 
-- (NSArray*)MY_emptyArrayArrayByAddingObject:(id)anObject
+- (NSArray*)my_emptyArrayArrayByAddingObject:(id)anObject
 {
     if(!anObject) return self;
-    return [self MY_emptyArrayArrayByAddingObject:anObject];
+    return [self my_emptyArrayArrayByAddingObject:anObject];
 }
 
-- (NSArray*)MY_singleArrayArrayByAddingObject:(id)anObject
+- (NSArray*)my_singleArrayArrayByAddingObject:(id)anObject
 {
     if(!anObject) return self;
-    return [self MY_singleArrayArrayByAddingObject:anObject];
+    return [self my_singleArrayArrayByAddingObject:anObject];
 }
 
-- (NSArray*)MY_multiArrayArrayByAddingObject:(id)anObject
+- (NSArray*)my_multiArrayArrayByAddingObject:(id)anObject
 {
     if(!anObject) return self;
-    return [self MY_multiArrayArrayByAddingObject:anObject];
+    return [self my_multiArrayArrayByAddingObject:anObject];
 }
 
 @end

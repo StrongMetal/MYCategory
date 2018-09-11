@@ -24,7 +24,7 @@
     //不是跟视图控制器 && pop跟push动画没有正在执行 && 手势有效
     if (self.nav.childViewControllers.count > 1
         && ![[self.nav valueForKey:@"_isTransitioning"] boolValue]
-        && !lastVC.MY_interactivePopDisabled)
+        && !lastVC.my_interactivePopDisabled)
     {
         return YES;
     }
@@ -40,40 +40,40 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self MY_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(viewWillAppear:) swizzledSel:@selector(MY_viewWillAppear:)];
+        [self my_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(viewWillAppear:) swizzledSel:@selector(my_viewWillAppear:)];
     });
 }
 
 #pragma mark -- swizzling methods
-- (void)MY_viewWillAppear:(BOOL)animated
+- (void)my_viewWillAppear:(BOOL)animated
 {
-    if(![self.navigationController.MY_ignoreVCs containsObject:NSStringFromClass([self class])]
-       && self.navigationController.MY_barAppearaceEnabled)
+    if(![self.navigationController.my_ignoreVCs containsObject:NSStringFromClass([self class])]
+       && self.navigationController.my_barAppearaceEnabled)
     {
-        [self.navigationController setNavigationBarHidden:self.MY_navigationBarHidden animated:animated];
+        [self.navigationController setNavigationBarHidden:self.my_navigationBarHidden animated:animated];
     }
-    [self MY_viewWillAppear:animated];
+    [self my_viewWillAppear:animated];
 }
 
 #pragma mark -- getter && setter
-- (BOOL)MY_navigationBarHidden
+- (BOOL)my_navigationBarHidden
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
-- (void)setMY_navigationBarHidden:(BOOL)MY_navigationBarHidden
+- (void)setmy_navigationBarHidden:(BOOL)my_navigationBarHidden
 {
-    objc_setAssociatedObject(self, @selector(MY_navigationBarHidden), @(MY_navigationBarHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_navigationBarHidden), @(my_navigationBarHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (BOOL)MY_interactivePopDisabled
+- (BOOL)my_interactivePopDisabled
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
-- (void)setMY_interactivePopDisabled:(BOOL)MY_interactivePopDisabled
+- (void)setmy_interactivePopDisabled:(BOOL)my_interactivePopDisabled
 {
-    objc_setAssociatedObject(self, @selector(MY_interactivePopDisabled), @(MY_interactivePopDisabled), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_interactivePopDisabled), @(my_interactivePopDisabled), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
@@ -85,50 +85,50 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self MY_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(viewDidLoad) swizzledSel:@selector(MY_viewDidLoad)];
+        [self my_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(viewDidLoad) swizzledSel:@selector(my_viewDidLoad)];
     });
 }
 
 #pragma mark -- swizzling methods
-- (void)MY_viewDidLoad
+- (void)my_viewDidLoad
 {
-    self.interactivePopGestureRecognizer.delegate = self.MY_popGestureRecognizerDelegate;
-    [self MY_viewDidLoad];
+    self.interactivePopGestureRecognizer.delegate = self.my_popGestureRecognizerDelegate;
+    [self my_viewDidLoad];
 }
 
 #pragma mark -- getter && setter
-- (NSMutableSet <__kindof NSString *> *)MY_ignoreVCs
+- (NSMutableSet <__kindof NSString *> *)my_ignoreVCs
 {
     NSMutableSet *mSet = objc_getAssociatedObject(self, _cmd);
     if (!mSet)
     {
         mSet = [NSMutableSet set];
-        self.MY_ignoreVCs = mSet;
+        self.my_ignoreVCs = mSet;
     }
     return mSet;
 }
 
-- (void)setMY_ignoreVCs:(NSMutableSet<__kindof NSString *> *)MY_ignoreVCs
+- (void)setmy_ignoreVCs:(NSMutableSet<__kindof NSString *> *)my_ignoreVCs
 {
-    objc_setAssociatedObject(self, @selector(MY_ignoreVCs), MY_ignoreVCs, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_ignoreVCs), my_ignoreVCs, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (BOOL)MY_barAppearaceEnabled
+- (BOOL)my_barAppearaceEnabled
 {
     NSNumber *number = objc_getAssociatedObject(self, _cmd);
     if(number){
       return number.boolValue;
     }
-    self.MY_barAppearaceEnabled = YES;
+    self.my_barAppearaceEnabled = YES;
     return YES;
 }
 
-- (void)setMY_barAppearaceEnabled:(BOOL)MY_barAppearaceEnabled
+- (void)setmy_barAppearaceEnabled:(BOOL)my_barAppearaceEnabled
 {
-    objc_setAssociatedObject(self, @selector(MY_barAppearaceEnabled), @(MY_barAppearaceEnabled), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_barAppearaceEnabled), @(my_barAppearaceEnabled), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (MYPopGestureRecognizerDelegate *)MY_popGestureRecognizerDelegate
+- (MYPopGestureRecognizerDelegate *)my_popGestureRecognizerDelegate
 {
     MYPopGestureRecognizerDelegate *delegate = objc_getAssociatedObject(self, _cmd);
     if (!delegate)

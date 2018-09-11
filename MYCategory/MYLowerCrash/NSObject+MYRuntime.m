@@ -16,9 +16,9 @@
  
  @return 属性数组
  */
-+ (NSArray *)MY_propertyList
++ (NSArray *)my_propertyList
 {
-    NSArray *array = objc_getAssociatedObject(self, @selector(MY_propertyList));
+    NSArray *array = objc_getAssociatedObject(self, @selector(my_propertyList));
     if (array) return array;
     
     NSMutableArray *mArray = @[].mutableCopy;
@@ -32,9 +32,9 @@
     }
     free(propertys);
     
-    objc_setAssociatedObject(self, @selector(MY_propertyList), mArray, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_propertyList), mArray, OBJC_ASSOCIATION_COPY_NONATOMIC);
     
-    return objc_getAssociatedObject(self, @selector(MY_propertyList));
+    return objc_getAssociatedObject(self, @selector(my_propertyList));
 }
 
 /**
@@ -42,9 +42,9 @@
  
  @return 成员变量数组
  */
-+ (NSArray *)MY_ivarList
++ (NSArray *)my_ivarList
 {
-    NSArray *array = objc_getAssociatedObject(self, @selector(MY_ivarList));
+    NSArray *array = objc_getAssociatedObject(self, @selector(my_ivarList));
     if (array) return array;
     
     NSMutableArray *mArray = @[].mutableCopy;
@@ -58,9 +58,9 @@
     }
     free(ivars);
     
-    objc_setAssociatedObject(self, @selector(MY_ivarList), mArray, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_ivarList), mArray, OBJC_ASSOCIATION_COPY_NONATOMIC);
     
-    return objc_getAssociatedObject(self, @selector(MY_ivarList));
+    return objc_getAssociatedObject(self, @selector(my_ivarList));
 }
 
 /**
@@ -68,9 +68,9 @@
  
  @return 方法数组
  */
-+ (NSArray *)MY_methodList
++ (NSArray *)my_methodList
 {
-    NSArray *array = objc_getAssociatedObject(self, @selector(MY_methodList));
+    NSArray *array = objc_getAssociatedObject(self, @selector(my_methodList));
     if (array) return array;
     
     NSMutableArray *mArray = @[].mutableCopy;
@@ -84,9 +84,9 @@
     }
     free(methods);
     
-    objc_setAssociatedObject(self, @selector(MY_methodList), mArray, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_methodList), mArray, OBJC_ASSOCIATION_COPY_NONATOMIC);
     
-    return objc_getAssociatedObject(self, @selector(MY_methodList));
+    return objc_getAssociatedObject(self, @selector(my_methodList));
 }
 
 /**
@@ -94,9 +94,9 @@
  
  @return 协议列表
  */
-+ (NSArray *)MY_protocolList;
++ (NSArray *)my_protocolList;
 {
-    NSArray *array = objc_getAssociatedObject(self, @selector(MY_protocolList));
+    NSArray *array = objc_getAssociatedObject(self, @selector(my_protocolList));
     if (array) return array;
     
     NSMutableArray *mArray = @[].mutableCopy;
@@ -110,9 +110,9 @@
     }
     free(protocols);
     
-    objc_setAssociatedObject(self, @selector(MY_protocolList), mArray, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_protocolList), mArray, OBJC_ASSOCIATION_COPY_NONATOMIC);
     
-    return objc_getAssociatedObject(self, @selector(MY_protocolList));
+    return objc_getAssociatedObject(self, @selector(my_protocolList));
 }
 
 @end

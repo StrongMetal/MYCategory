@@ -25,25 +25,25 @@ static const CGFloat EventTimeInterval = 0.5;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self MY_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(sendAction:to:forEvent:) swizzledSel:@selector(MY_sendAction:to:forEvent:)];
+        [self my_swizzleInstanceMethodWithSrcClass:[self class] srcSel:@selector(sendAction:to:forEvent:) swizzledSel:@selector(my_sendAction:to:forEvent:)];
     });
 }
 
 #pragma mark -- swizzling methods
-- (void)MY_sendAction:(SEL)action to:(nullable id)target forEvent:(nullable UIEvent *)event
+- (void)my_sendAction:(SEL)action to:(nullable id)target forEvent:(nullable UIEvent *)event
 {
     if(self.isIgnoreEvent) return;
     self.isIgnoreEvent = YES;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(EventTimeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.isIgnoreEvent = NO;
     });
-    [self MY_sendAction:action to:target forEvent:event];
+    [self my_sendAction:action to:target forEvent:event];
 }
 
 #pragma mark -- cover system
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if(UIEdgeInsetsEqualToEdgeInsets(self.MY_hitEdgeInsets, UIEdgeInsetsZero)
+    if(UIEdgeInsetsEqualToEdgeInsets(self.my_hitEdgeInsets, UIEdgeInsetsZero)
        || !self.userInteractionEnabled
        || !self.enabled
        || self.hidden)
@@ -51,7 +51,7 @@ static const CGFloat EventTimeInterval = 0.5;
         return [super pointInside:point withEvent:event];
     }
     //返回范围控制之后的rect
-    CGRect hitRect = UIEdgeInsetsInsetRect(self.bounds, self.MY_hitEdgeInsets);
+    CGRect hitRect = UIEdgeInsetsInsetRect(self.bounds, self.my_hitEdgeInsets);
     return  CGRectContainsPoint(hitRect, point);
 }
 
@@ -66,7 +66,7 @@ static const CGFloat EventTimeInterval = 0.5;
     objc_setAssociatedObject(self, @selector(isIgnoreEvent), @(isIgnoreEvent), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (UIEdgeInsets)MY_hitEdgeInsets
+- (UIEdgeInsets)my_hitEdgeInsets
 {
     NSValue *value = objc_getAssociatedObject(self, _cmd);
     if (value)
@@ -76,9 +76,9 @@ static const CGFloat EventTimeInterval = 0.5;
     return UIEdgeInsetsZero;
 }
 
-- (void)setMY_hitEdgeInsets:(UIEdgeInsets)hitEdgeInsets
+- (void)setmy_hitEdgeInsets:(UIEdgeInsets)hitEdgeInsets
 {
-    objc_setAssociatedObject(self, @selector(MY_hitEdgeInsets), [NSValue valueWithUIEdgeInsets:hitEdgeInsets], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(my_hitEdgeInsets), [NSValue valueWithUIEdgeInsets:hitEdgeInsets], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

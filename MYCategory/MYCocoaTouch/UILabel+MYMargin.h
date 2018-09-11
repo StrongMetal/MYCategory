@@ -11,6 +11,6 @@
 @interface UILabel (MYMargin)
 
 /** 文字边缘间距 {上，左，下，右}*/
-@property (nonatomic,assign) UIEdgeInsets MY_textEdgeInset;
+@property (nonatomic,assign) UIEdgeInsets my_textEdgeInset;
 
 @end

@@ -16,15 +16,15 @@ static NSString *KMDictionaryClass = @"__NSDictionaryM";
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMDictionaryClass)
+        [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMDictionaryClass)
                                             srcSel:@selector(setObject:forKey:)
-                                       swizzledSel:@selector(MY_safeSetObject:forKey:)];
+                                       swizzledSel:@selector(my_safeSetObject:forKey:)];
     });
 }
-- (void)MY_safeSetObject:(id)anObject forKey:(id <NSCopying>)aKey
+- (void)my_safeSetObject:(id)anObject forKey:(id <NSCopying>)aKey
 {
     if(!anObject || !aKey) return;
-    [self MY_safeSetObject:anObject forKey:aKey];
+    [self my_safeSetObject:anObject forKey:aKey];
 }
 
 @end

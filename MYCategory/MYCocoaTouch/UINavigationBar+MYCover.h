@@ -10,12 +10,12 @@
 
 @interface UINavigationBar (MYCover)
 
-- (void)MY_setBackgroundColor:(UIColor *)backgroundColor;
+- (void)my_setBackgroundColor:(UIColor *)backgroundColor;
 
-- (void)MY_setTranslationY:(CGFloat)translationY;
+- (void)my_setTranslationY:(CGFloat)translationY;
 
-- (void)MY_setElementAlpha:(CGFloat)alpha;
+- (void)my_setElementAlpha:(CGFloat)alpha;
 
-- (void)MY_reset;
+- (void)my_reset;
 
 @end

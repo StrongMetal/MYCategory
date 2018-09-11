@@ -18,90 +18,90 @@ static NSString *KMArrayClass = @"__NSArrayM";
     dispatch_once(&onceToken, ^{
         @autoreleasepool
         {
-            [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
+            [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
                                                 srcSel:@selector(addObject:)
-                                           swizzledSel:@selector(MY_safeAddObject:)];
+                                           swizzledSel:@selector(my_safeAddObject:)];
             
-            [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
+            [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
                                                 srcSel:@selector(insertObject:atIndex:)
-                                           swizzledSel:@selector(MY_safeInsertObject:atIndex:)];
+                                           swizzledSel:@selector(my_safeInsertObject:atIndex:)];
             
-            [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
+            [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
                                                 srcSel:@selector(removeObjectAtIndex:)
-                                           swizzledSel:@selector(MY_safeRemoveObjectAtIndex:)];
+                                           swizzledSel:@selector(my_safeRemoveObjectAtIndex:)];
             
-            [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
+            [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
                                                 srcSel:@selector(replaceObjectAtIndex:withObject:)
-                                           swizzledSel:@selector(MY_safeReplaceObjectAtIndex:withObject:)];
+                                           swizzledSel:@selector(my_safeReplaceObjectAtIndex:withObject:)];
             
-            [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
+            [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
                                                 srcSel:@selector(objectAtIndex:)
-                                           swizzledSel:@selector(MY_safeObjectAtIndex:)];
+                                           swizzledSel:@selector(my_safeObjectAtIndex:)];
             
             if (iOS11)
             {
-                [self MY_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
+                [self my_swizzleInstanceMethodWithSrcClass:NSClassFromString(KMArrayClass)
                                                     srcSel:@selector(objectAtIndexedSubscript:)
-                                               swizzledSel:@selector(MY_safeObjectAtIndexedSubscript:)];
+                                               swizzledSel:@selector(my_safeObjectAtIndexedSubscript:)];
             }
         }
         
     });
 }
 
-- (void)MY_safeAddObject:(id)anObject
+- (void)my_safeAddObject:(id)anObject
 {
     @autoreleasepool
     {
         if(!anObject)return;
         
-        [self MY_safeAddObject:anObject];
+        [self my_safeAddObject:anObject];
     }
     
 }
 
-- (void)MY_safeInsertObject:(id)anObject atIndex:(NSUInteger)index
+- (void)my_safeInsertObject:(id)anObject atIndex:(NSUInteger)index
 {
     @autoreleasepool
     {
         if(!anObject || index > self.count)return;
-        [self MY_safeInsertObject:anObject atIndex:index];
+        [self my_safeInsertObject:anObject atIndex:index];
     }
 }
 
-- (void)MY_safeRemoveObjectAtIndex:(NSUInteger)index
+- (void)my_safeRemoveObjectAtIndex:(NSUInteger)index
 {
     @autoreleasepool
     {
         if(index >= self.count) return;
-        [self MY_safeRemoveObjectAtIndex:index];
+        [self my_safeRemoveObjectAtIndex:index];
     }
 }
 
-- (void)MY_safeReplaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject
+- (void)my_safeReplaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject
 {
     @autoreleasepool
     {
         if(index >= self.count || !anObject) return;
-        [self MY_safeReplaceObjectAtIndex:index withObject:anObject];
+        [self my_safeReplaceObjectAtIndex:index withObject:anObject];
     }
 }
 
-- (id)MY_safeObjectAtIndex:(NSUInteger)index
+- (id)my_safeObjectAtIndex:(NSUInteger)index
 {
     @autoreleasepool
     {
         if (index >= self.count) return nil;
-        return [self MY_safeObjectAtIndex:index];
+        return [self my_safeObjectAtIndex:index];
     }
 }
 
-- (id)MY_safeObjectAtIndexedSubscript:(NSUInteger)index
+- (id)my_safeObjectAtIndexedSubscript:(NSUInteger)index
 {
     @autoreleasepool
     {
         if (index >= self.count) return nil;
-        return [self MY_safeObjectAtIndexedSubscript:index];
+        return [self my_safeObjectAtIndexedSubscript:index];
     }
 }
 
